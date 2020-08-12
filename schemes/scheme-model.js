@@ -10,21 +10,39 @@ module.exports = {
 }
 
 function find(){
-    return db("schemes")
+    return db("schemes");
 }
 
 function findById(id){
-    return db("schemes").where({ id }).first()
+    return db("schemes").where({ id }).first();
 }
-function findSteps(){
-    return 
+
+function findSteps(schemeId){
+    return db("steps")
+        .where({ schemeId })
 }
-function add(){
-    return 
+
+function add(scheme){
+    return (
+        db("schemes")
+            .insert(scheme)
+            .returning("id")
+            .then(ids => {
+                const id = ids[0];
+                return findById(id);
+            })
+    );
 }
-function update(){
-    return 
+
+function update(changes, id){
+    return db("schemes")
+    .where({ id })
+    .update(changes)
+    .then(() => {
+        return findById(id)
+    });
 }
-function remove(){
-    return 
+
+function remove(id){
+    return db("schemes").where({ id }).del();
 }
