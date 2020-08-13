@@ -35,12 +35,12 @@ join Customer as c on a.CustomerId = c.Id
 
 SELECT a.CategoryName, count(b.ProductName) as count
 FROM Categories as a
-left JOIN Products as b on a.categoryid = b.categoryid
-group by a.CategoryName
+LEFT JOIN Products as b on a.categoryid = b.categoryid
+GROUP BY a.CategoryName
 
 -- Display OrderID and a column called ItemCount that shows the total number of products placed on the order. Shows 196 records.
 
-SELECT  a.OrderID, count(c.ProductName) as ItemCount
+SELECT a.OrderID, count(c.ProductName) as ItemCount
 FROM Orders as a
 LEFT JOIN OrderDetails as b
 ON a.OrderID = b.OrderID
